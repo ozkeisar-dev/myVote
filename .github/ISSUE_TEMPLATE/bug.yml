@@ -1,0 +1,86 @@
+name: Bug report
+description: Report a reproducible bug.
+title: '[bug] '
+labels: ['bug', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please fill in every field —
+        an unreproducible bug is hard to fix.
+
+        > **Are you on the team?** Use Multica, not GitHub Issues, for internal bugs.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: One sentence describing the bug.
+      placeholder: e.g. Login redirects to /404 after entering valid OTP
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where did you see the bug?
+      options:
+        - production
+        - staging
+        - preview / PR build
+        - local dev
+        - unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: The actual behaviour you saw.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps. Include URLs, inputs, and any relevant state.
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs, screenshots, or recording
+      description: Paste relevant logs (no secrets) and attach screenshots / recordings.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - 'P0 — production outage / data loss'
+        - 'P1 — broken core flow, no workaround'
+        - 'P2 — broken non-core flow, has workaround'
+        - 'P3 — minor / cosmetic'
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device / browser (if relevant)
+      placeholder: e.g. iPhone 14, Safari 17 — Chrome 120 on macOS
