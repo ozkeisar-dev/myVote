@@ -1,0 +1,53 @@
+name: hetzner-plan
+
+on:
+  pull_request:
+    paths:
+      - "infra/hetzner/**"
+      - ".github/workflows/hetzner-plan.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/hetzner
+    env:
+      TF_IN_AUTOMATION: "1"
+      TF_VAR_hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
+      TF_VAR_ssh_key_name: ${{ vars.HETZNER_SSH_KEY_NAME || 'myvote-ops' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+
+      - name: terraform fmt
+        run: terraform fmt -check -recursive
+
+      - name: terraform init
+        run: terraform init -backend=false -input=false
+
+      - name: terraform validate
+        run: terraform validate
+
+      - name: terraform plan
+        id: plan
+        run: terraform plan -input=false -no-color -out=tfplan
+
+      - name: Render plan summary
+        if: github.event_name == 'pull_request'
+        run: |
+          {
+            echo "## Hetzner terraform plan"
+            echo
+            echo '```'
+            terraform show -no-color tfplan | head -200
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
