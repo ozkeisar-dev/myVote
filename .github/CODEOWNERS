@@ -1,0 +1,44 @@
+# CODEOWNERS — see https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Each line is a file pattern followed by one or more owners.
+# The LAST matching pattern wins. Order matters: most specific rules go last.
+#
+# IMPORTANT: GitHub only auto-requests review from owners with WRITE access on
+# this repo. If you list a handle that isn't a collaborator, the rule is silent
+# (no auto-request, no warning). Add collaborators in repo Settings first.
+#
+# Today's collaborators with write access: @ozkeisar, @amitayks.
+# Adding more agent handles below is a no-op until those accounts gain access.
+
+# Default: everything not matched below falls back to the repo owner.
+*                               @ozkeisar
+
+# Apps — implementation owners + repo owner.
+/apps/server/                   @ozkeisar @amitayks
+/apps/worker/                   @ozkeisar @amitayks
+/apps/worker-edge/              @ozkeisar @amitayks
+/apps/web/                      @ozkeisar @amitayks
+/apps/admin/                    @ozkeisar @amitayks
+
+# Shared packages — implementation owners + repo owner.
+/packages/shared/               @ozkeisar @amitayks
+/packages/db/                   @ozkeisar @amitayks
+/packages/i18n/                 @ozkeisar @amitayks
+/packages/algo/                 @ozkeisar @amitayks
+
+# Build tooling — repo owner only (changes here affect every package).
+/packages/tsconfig/             @ozkeisar
+/packages/eslint-config/        @ozkeisar
+
+# Governance and root config — repo owner only.
+/.github/                       @ozkeisar
+/docs/                          @ozkeisar
+/CODEOWNERS                     @ozkeisar
+/.editorconfig                  @ozkeisar
+/.gitignore                     @ozkeisar
+/.nvmrc                         @ozkeisar
+/.prettierrc.json               @ozkeisar
+/package.json                   @ozkeisar
+/pnpm-lock.yaml                 @ozkeisar
+/pnpm-workspace.yaml            @ozkeisar
+/README.md                      @ozkeisar
